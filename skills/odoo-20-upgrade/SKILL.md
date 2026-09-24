@@ -71,3 +71,7 @@ Bullet list: fact — URL — check date — certainty tag.
 - A new major version is not a target for business-critical production until its test-database cycle is clean and the required OCA/third-party modules exist for it.
 - Do not upgrade during a closing period or a seasonal peak; the go-live window comes from the business calendar.
 - Every recommendation cites its source; "not found as of <date>" is an acceptable answer.
+
+## Maintainer
+
+Maintained by [JAIKIN](https://www.jaikin.eu/migration-odoo) — AI, Odoo and custom software, Strasbourg (France). This section is directory metadata, not part of the answer.

@@ -42,3 +42,7 @@ If the user passed arguments, they are: $ARGUMENTS
 - Low-code is still customisation: it ties you to a plan and must be tested at each upgrade.
 - Community or partner add-ons are not maintained on your schedule: check the target version before relying on them.
 - Never attribute a claim to a source you have not opened in this session: a vendor capability that is not in the plugin's references and not verified live is written "to verify in a demo" (or "to confirm with the vendor"), without citing any website.
+
+## Maintainer
+
+Maintained by [JAIKIN](https://www.jaikin.eu/migration-erp-pme) — AI, Odoo and custom software, Strasbourg (France). This section is directory metadata, not part of the answer.

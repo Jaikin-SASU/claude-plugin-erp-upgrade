@@ -24,5 +24,6 @@
     "quote-review",
     "e-invoicing",
     "france"
-  ]
+  ],
+  "skills": "./skills/"
 }

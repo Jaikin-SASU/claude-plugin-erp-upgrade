@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.3.1 — 2026-09-25 : Cursor Marketplace manifest; maintainer section in skills.
+
 ## 0.3.0 — 2026-09-24 : read-only MCP server `erp-facts` (https://erp-mcp.jaikin.eu/mcp, registry name eu.jaikin/erp-facts) serving the sourced vendor facts; skills call it first when available; further-reading links.
 
 ## 0.2.0 — 2026-09-24 : multi-ERP (choose-erp, fit-gap, erp-migration, erp-cost, review-erp-quote) with sourced vendor references (Business Central, Sage, SAP Business One, Divalto, Cegid, Sylob, EBP, e-invoicing PA list); Odoo skill renamed odoo-20-upgrade with ${CLAUDE_PLUGIN_ROOT} script paths; legacy commands/ removed; displayName.
