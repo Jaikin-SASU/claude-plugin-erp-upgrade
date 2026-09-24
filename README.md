@@ -11,7 +11,7 @@
 | Command | Skill | You get |
 |---|---|---|
 | `/odoo-migration-check` | `odoo-20-migration-readiness` | A traffic-light readiness report in 8 blocks (decide, inventory, prerequisites, custom code, functional changes, licensing, OCA, execution), blocking items, a phased plan, questions for your integrator, and the list of facts used with their sources |
-| `/odoo-fit-gap <file>` | `odoo-fit-gap` | A requirement-by-requirement matrix: standard, configuration, Studio, OCA, development or outside Odoo — with plan and hosting consequences |
+| `/odoo-gap-analysis <file>` | `odoo-fit-gap` | A requirement-by-requirement matrix: standard, configuration, Studio, OCA, development or outside Odoo — with plan and hosting consequences |
 | `/odoo-cost` | `odoo-cost-estimate` | A 5-year cost: licences (incl. Light Users, first-year discount flagged), hosting, implementation or migration, maintenance |
 | `/review-odoo-quote <file>` | `review-odoo-integrator-quote` | Odoo-specific red flags in an integrator's quote, plus general contract checks |
 
@@ -53,7 +53,7 @@ Built and maintained by [JAIKIN](https://www.jaikin.eu/), Strasbourg (France). F
 **Préparer un projet ou une migration Odoo avec des faits sourcés.** Conçu le jour de la sortie d'Odoo 20 (24/09/2026) à partir de la documentation officielle, des notes de version et du code Community public.
 
 - `/odoo-migration-check` : état de préparation en 8 blocs, points bloquants, plan en phases, questions à poser à l'intégrateur.
-- `/odoo-fit-gap` : matrice exigence par exigence (standard, paramétrage, Studio, OCA, développement).
+- `/odoo-gap-analysis` : matrice exigence par exigence (standard, paramétrage, Studio, OCA, développement).
 - `/odoo-cost` : coût sur 5 ans (licences dont Light Users, hébergement, mise en œuvre, maintenance).
 - `/review-odoo-quote` : relecture d'un devis d'intégrateur, pièges propres à Odoo.
 - Scripts en lecture seule : analyse des modules maison et inventaire d'une instance (clé d'API dans une variable d'environnement, jamais affichée).
