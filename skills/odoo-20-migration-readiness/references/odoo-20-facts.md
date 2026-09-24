@@ -1,0 +1,59 @@
+# Odoo 20 — sourced facts for migration planning
+
+**Checked on: 24 September 2026** (Odoo 20 release day). Certainty tags:
+`[OFF-20]` official Odoo source for version 20 · `[CODE-20]` read in the public Community code, branch 20.0 · `[OFF-19]` official, introduced in 19 or earlier · `[DEDUCED]` our deduction from official sources · `[THIRD]` third-party, unverified.
+
+Items marked **VOLATILE** change week by week: re-check them live before relying on them.
+
+## 1. Release and support
+- Odoo 20 released on 24 Sept 2026 as FINAL (`version_info = (20, 0, 0, FINAL, 0, '')`). [OFF-20][CODE-20] — https://www.odoo.com/odoo-20-release-notes · https://raw.githubusercontent.com/odoo/odoo/20.0/odoo/release.py
+- On-premise packages available: deb for Ubuntu 24.04 LTS (Noble), rpm for Fedora 42. [OFF-20] — https://www.odoo.com/documentation/20.0/administration/on_premise/packages.html
+- Standard support covers each major version for three years; beyond that, extended support is a paid add-on. "You can upgrade from any version to supported versions only. The last unsupported version can still be used as an upgrade target for up to six months following its end-of-life date." [OFF-20] — https://www.odoo.com/documentation/20.0/administration/standard_extended_support.html
+- Official end of standard support: 19.0 → Sept 2028 (planned) · 18.0 → Sept 2027 · **17.0 → Sept 2026** · 16.0 → Sept 2025 (extended support only, not on Online). [OFF-20] — same URL
+- With Odoo 20 out, **17.0 leaves standard support now**; 16.0 already had. [DEDUCED]
+- Enterprise Subscription Agreement §5.1: once a year, no earlier than 6 months after a new major release, a database older than the 3 most recent major versions ("Covered Versions") can be charged **an extra 25 % of the annualised price**. → A database left on 17 may be charged +25 % from about end of March 2027. [OFF-20 + DEDUCED] — https://www.odoo.com/documentation/20.0/legal/terms/enterprise.html
+- Odoo Online: a database on a major version must be upgraded at least every two years; Odoo upgrades it automatically at the deadline if the owner does nothing. [OFF-20] — https://www.odoo.com/documentation/20.0/administration/upgrade.html
+
+## 2. Upgrade process
+- **VOLATILE** — On 24 Sept 2026, upgrade.odoo.com only offered targets 19.0 / 18.0 / 17.0; 20.0 was not yet selectable. Opening date not announced. — https://upgrade.odoo.com/
+- No mandatory intermediate step: the agreement allows upgrading "from any version of the Software to a more recent Covered Version" (e.g. 16/17/18 → 20 directly, once the target opens). [OFF-20] — enterprise terms URL above
+- Official sequence: request a test database → test → report issues to support → upgrade production. On-premise command: `python <(curl -s https://upgrade.odoo.com/upgrade) test -d <db> -t <version>`; needs port 443 and TCP 32768–60999 outbound. The dump is sent without filestore: merge the returned filestore with production's. Test databases are neutralised (crons off, dummy mail server, payment/carriers in test mode, bank sync off). [OFF-20] — https://www.odoo.com/documentation/20.0/administration/upgrade.html
+- Odoo.sh: the platform upgrades the latest production backup on a staging branch; every commit restores the upgraded database and updates custom modules; log in `~/logs/upgrade.log`; in production, a failed upgrade is automatically reverted. [OFF-20] — same URL
+- Included in Enterprise: standard modules, Studio customisations (while Studio is installed and subscribed), code covered by a maintenance subscription. **Not included**: data cleaning, uncovered custom or partner modules, training. For covered modules unmaintained for 12 months, Odoo may charge a one-time fee per missing month. [OFF-20] — upgrade URL + enterprise terms
+- Odoo recommends "a complete freeze of the codebase when starting the upgrade process"; test databases should be requested repeatedly because "standard upgrade scripts […] are constantly evolving"; rehearse the day before production. [OFF-20] — https://www.odoo.com/documentation/20.0/developer/howtos/upgrade_custom_db.html
+- Community edition: no official upgrade service; the community tool is OCA OpenUpgrade. **VOLATILE** — on 24 Sept 2026 OpenUpgrade had no 20.0 branch, and its 18→19 coverage was still partial one year after 19 (≈93 modules "Done" out of 653 lines). — https://github.com/OCA/OpenUpgrade
+
+## 3. Technical requirements
+- Python ≥ 3.12 (was 3.10 in 19); maximum 3.14. PostgreSQL ≥ 16 (was 13 in 19). [OFF-20][CODE-20] — https://www.odoo.com/documentation/20.0/administration/on_premise/source.html · release.py
+
+## 4. Breaking changes for custom code
+- **Access rights rewritten**: `ir.model.access` and `ir.rule` are merged into the new model `ir.access` (ORM changelog 19.4). `ir.model.access.csv` files are replaced by `ir.access.csv` with columns `id,name,model_id,group_id/id,operation,domain`. Release notes: "Simplified access rights… removing record rules and adding a domain directly at the access right level." → **every custom module's security files must be rewritten.** [OFF-20][CODE-20] — https://github.com/odoo/odoo/pull/166359 · https://www.odoo.com/odoo-20-release-notes
+- Official code-rewriting tool `odoo-bin upgrade_code` with scripts in `odoo/upgrade_code/` (tree→list, sql constraints, jsonrpc routes, t-call, account groups, base64 in XML, ir-access, owl3 migration…). Its own warning: "best-effort […] not silver bullets". It rewrites code, not data. [CODE-20] — https://github.com/odoo/odoo/tree/20.0/odoo/upgrade_code
+- **OWL 3**: 20.0 ships OWL 3.0.0-alpha.49 (19.0: 2.8.4). The OWL 2→3 guide lists 22 breaking changes (`useState`/`reactive` → `proxy`, `this.props`/`this.env` removed, `onWillUpdateProps`, `t-esc`, `t-portal`, `useComponent` removed, `useExternalListener` → `useListener`…). A compatibility layer exists, described as "a temporary bridge". [CODE-20] — https://github.com/odoo/owl/blob/master/doc/v3/owl/migration_owl2_to_owl3.md · https://github.com/odoo/odoo/blob/20.0/addons/web/static/src/owl2/owl3_compatibility_layer.js
+- `read_group` becomes public with a new signature `(domain, groupby, aggregates, having, offset, limit, order) -> list[tuple]`; old-style calls `read_group(domain, fields, groupby, lazy=…)` break. [CODE-20] — https://github.com/odoo/odoo/commit/cfeab5eefe8818559ecaa6901857ff0e346aa885
+- Deprecated since 20.0: `_check_access` (→ `_access_domain`), `_check_field_access` (→ `check_field_access`), `_init_column`, `_table_has_rows`. Removed: `Model._table_query`. Binary fields become `BinaryValue` (no base64 in the flow); new `copy` behaviour adds "(copy)" to names. [OFF-20][CODE-20] — https://www.odoo.com/documentation/20.0/developer/reference/backend/orm/changelog.html
+- Tracking values removed; tracking messages are generated on the fly (a `mail_tracking` module exists for those who still need them). Code reading `mail.tracking.value` must be reviewed. [OFF-20] — release notes
+- Community modules removed or merged between 19.0 and 20.0 (fix `depends`): `base_vat`, `base_iban`, `stock_picking_batch` (now in `stock`), `website_sale_wishlist` and `website_sale_comparison` (now in `website_sale`), `hr_org_chart`, `hr_homeworking`, `delivery_mondialrelay`, `transifex`, `hr_work_entry_holidays`, `l10n_fr_hr_work_entry_holidays`. [CODE-20] — tree comparison of https://github.com/odoo/odoo branches 19.0 and 20.0
+- Font Awesome icons replaced by Material Symbols: custom views and reports using `fa-` classes need review. [OFF-20] — release notes
+- PDF reports: new engine modules `base_report_wkhtmltox` (auto-install) and `base_report_paper_muncher`. [CODE-20]
+- **External API**: XML-RPC and JSON-RPC (`/xmlrpc`, `/xmlrpc/2`, `/jsonrpc`) are deprecated; "The db service was removed in Odoo 20 (fall 2026)"; the common and object services are scheduled for removal in Odoo 22 (fall 2028). Replacement: JSON-2 (`/json/2/<model>/<method>`, bearer API key), available since 19.0. "Access to data via the external API is only available on Custom Odoo pricing plans." MCP access to the database is official. No native REST/GraphQL in official sources. [OFF-20] — https://www.odoo.com/documentation/20.0/developer/reference/external_api.html
+- Legacy items still enforced (old databases): `attrs`/`states` removed since 17.0 (20.0 still raises "Since 17.0, the "attrs" and "states" attributes are no longer used"); view type `tree` → `list` (17.5); `_sql_constraints` → `models.Constraint` (18.1); routes `type='json'` → `'jsonrpc'` (18.1); `record._cr`/`_uid`/`_context` deprecated (19.0). [CODE-20][OFF-19]
+
+## 5. Functional changes that alter processes (release notes) [OFF-20] — https://www.odoo.com/odoo-20-release-notes
+- **Field Service discontinued**, features integrated into Planning; worksheets use property fields instead of Studio fields.
+- Remote Work merged into Employees.
+- **Payroll**: work entries and the Planning–Payroll integration removed; work entry types and time-off types merged.
+- **Accounting**: all journal entries impacting bank accounts must originate from bank transactions; account groups replaced by parent accounts, account codes optional; asset models replaced by depreciation models; payment statuses renamed ("In Process" → "Paid", "Paid" → "Reconciled"); "Employee Expenses" menu removed, expenses become draft vendor bills; taxes restricted to their fiscal position; PISP invoice payment.
+- **Inventory / Manufacturing**: return wizard removed; "Order" and "Order to max" merged; HS codes per variant; flexible consumption everywhere; single "Produce" button; MOs scheduled "as soon as possible" by default; lots/serials auto-generated at closing; stock valuation possible without the Inventory app.
+- **Sales**: lines without product allowed ("Mandatory Product" setting); rental, subscription and sale prices unified in one "Prices" tab.
+- **Point of Sale**: closing by global sale, multi-currency, simplified stock without Inventory.
+- **Project**: profitability report replaced by new reports. **Repair**: "Under Repair" status removed.
+- **AI**: all AI features consume credits bought via IAP; agents can create and edit records; "Topics" become "skills"; conversations kept 30 days.
+- General: offline mode; push notifications leave Firebase; new Studio report editor.
+- France: annual PCG statements; Peppol/directory endpoint detection from SIREN. Odoo is registered as an approved e-invoicing platform (PA) in France (reception mandatory Sept 2026, issuance for SMEs Sept 2027). [OFF] — https://www.odoo.com/blog/odoo-news-5/odoo-an-approved-platform-pa-registered-in-france-for-electronic-invoicing-2193
+
+## 6. Licensing (Enterprise agreement v13, dated 24 Sept 2026) [OFF-20]
+- New **Light User** licence: "any active employee record (from the human resources App) not linked to an active non-portal user account". The definition of "User" changes accordingly. → Employee records without a user account become billable as Light Users; **count them before renewing**. [OFF-20 + DEDUCED] — https://github.com/odoo/documentation/commit/abd5c802300b98558259ce8c4057c04b882b4deb
+- Custom modules hosted on Odoo Online must be "Covered" (maintenance fee per 100 lines of code). [OFF-20] — same commit
+- Renewal indexation "up to 7% per year" unchanged. [OFF]
+- **VOLATILE** — Public price list checked 24 Sept 2026 (EUR, per user per month): Standard 24.90 € yearly billing (19.90 € first-year discount), unchanged vs 23 Sept; **Custom 44.90 € yearly / 56.90 € monthly (35.90 € first-year discount) — up from 37.40 € / 46.80 € observed on 23 Sept 2026, i.e. about +20 % on the Custom plan on Odoo 20 release day**; Light User "at 7,90 €" via an advisor. Always quote with the check date. — https://www.odoo.com/fr_FR/pricing (live check) · 23 Sept values from our own dated check of the same page

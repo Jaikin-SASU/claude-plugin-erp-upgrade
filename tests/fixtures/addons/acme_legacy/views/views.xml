@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_acme_legacy_tree" model="ir.ui.view">
+        <field name="name">acme.legacy.tree</field>
+        <field name="model">acme.legacy</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" attrs="{'invisible': [('active', '=', False)]}"/>
+                <field name="state" states="draft,done"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_acme_legacy" model="ir.actions.act_window">
+        <field name="name">ACME Legacy</field>
+        <field name="res_model">acme.legacy</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

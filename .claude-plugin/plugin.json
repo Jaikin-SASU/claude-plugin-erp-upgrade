@@ -1,0 +1,10 @@
+{
+  "name": "erp-upgrade-fit-gap",
+  "version": "0.1.0",
+  "description": "Plan Odoo projects and upgrades with sourced facts: deep Odoo 20 migration readiness checklist (support deadlines, ir.access and OWL 3 breaking changes, functional changes per app, Light User licensing, OCA readiness), read-only scripts to scan custom modules and inventory an instance, fit-gap analysis, 5-year cost estimate and integrator quote review. Answers in the user's language.",
+  "author": { "name": "JAIKIN", "url": "https://www.jaikin.eu/" },
+  "homepage": "https://www.jaikin.eu/",
+  "repository": "https://github.com/Jaikin-SASU/claude-plugin-erp-upgrade",
+  "license": "MIT",
+  "keywords": ["odoo", "odoo-20", "erp", "migration", "upgrade", "fit-gap", "oca", "licensing", "quote-review", "france"]
+}
