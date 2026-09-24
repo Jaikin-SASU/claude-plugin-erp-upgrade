@@ -12,7 +12,7 @@ If the user passed arguments, they are: $ARGUMENTS
 
 ## Workflow
 1. Read the requirements (extract text from PDF/DOCX); number them if needed. Identify the ERP(s) considered.
-2. Read `${CLAUDE_PLUGIN_ROOT}/references/vendors/<vendor>.md` for each ERP (editions, plans, customisation model, add-on ecosystem; see `${CLAUDE_PLUGIN_ROOT}/references/vendors/INDEX.md` for the file of each ERP).
+2. Read `${CLAUDE_PLUGIN_ROOT}/references/vendors/<vendor>.md` for each ERP (editions, plans, customisation model, add-on ecosystem; see `${CLAUDE_PLUGIN_ROOT}/references/vendors/INDEX.md` for the file of each ERP). If the `erp-facts` MCP tools are available, call `vendor_facts`, `support_deadlines` or `einvoicing_status` first: same sourced facts, kept up to date.
 3. Classify each requirement:
    - **S — Standard**: covered out of the box (name the module/feature).
    - **C — Configuration**: standard with settings, data or rules.

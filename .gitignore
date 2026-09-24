@@ -1,6 +1,9 @@
 node_modules/
 coverage/
 .wrangler/
+server/node_modules/
+server/coverage/
+server/.wrangler/
 .dev.vars
 .env*
 .DS_Store

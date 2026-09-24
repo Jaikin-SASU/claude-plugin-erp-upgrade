@@ -22,3 +22,21 @@ jobs:
 
       - name: Content blacklist check
         run: bash scripts/check-content.sh
+
+  mcp-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+
+      - name: MCP server tests
+        working-directory: server
+        run: |
+          npm ci
+          npm test
+          npm run typecheck

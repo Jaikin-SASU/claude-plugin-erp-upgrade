@@ -32,8 +32,19 @@ Invoke as `/erp-upgrade-fit-gap:<skill>` or just describe your need — skills t
   - `scan_addons.py <addons-folder>` — static scan of custom modules, no database access, effort points per module.
   - `inventory_instance.py --url … --db …` — read-only inventory through an API key read from `ODOO_API_KEY` (never printed or stored; hard-coded whitelist of read methods).
 
+## MCP server `erp-facts`
+The plugin connects to a read-only MCP server, **https://erp-mcp.jaikin.eu/mcp** (no account needed), that serves the same sourced vendor facts so they can be updated without reinstalling: `list_vendors`, `vendor_facts`, `support_deadlines`, `einvoicing_status`, `odoo_20_changes`, `sources_and_method`. Registry name: `eu.jaikin/erp-facts`.
+
 ## Price data
 Cost and quote skills use the read-only `prix-logiciel` MCP server (French public procurement contracts and verified private-market figures), shared with the [Software Buyer France](https://github.com/Jaikin-SASU/claude-plugin-software-buyer) plugin.
+
+## Further reading (JAIKIN, in French)
+- Odoo 20: what changes and who should upgrade — [Odoo 20 : les nouveautés](https://www.jaikin.eu/blog/odoo-20-nouveautes)
+- Planning an Odoo upgrade — [Migration Odoo](https://www.jaikin.eu/migration-odoo)
+- Moving an SME to a new ERP — [Migration ERP PME](https://www.jaikin.eu/migration-erp-pme)
+- Odoo licence and project costs — [Prix Odoo](https://www.jaikin.eu/odoo-prix)
+- Odoo and French e-invoicing — [Odoo et facture électronique](https://www.jaikin.eu/odoo-facture-electronique)
+- Comparing ERPs for manufacturers — [Meilleur ERP pour PME industrielle](https://www.jaikin.eu/blog/meilleur-erp-pme-industrielle-2026) · [Odoo vs Sage](https://www.jaikin.eu/odoo-vs-sage)
 
 ## Install
 ```

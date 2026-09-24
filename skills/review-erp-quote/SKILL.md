@@ -13,6 +13,7 @@ If the user passed arguments, they are: $ARGUMENTS
 ## Workflow
 1. Read the whole document (extract text from PDF/DOCX). Identify the ERP, edition, version, hosting, licences, scope, pricing model, schedule, acceptance, warranty, ownership, exit.
 2. Walk the **ERP checklist** below, then the **vendor-specific traps** in `${CLAUDE_PLUGIN_ROOT}/references/vendors/<vendor>.md` (see `${CLAUDE_PLUGIN_ROOT}/references/vendors/INDEX.md` for the file of each ERP; for Odoo also `${CLAUDE_PLUGIN_ROOT}/skills/odoo-20-upgrade/references/odoo-20-facts.md`).
+   If the `erp-facts` MCP tools are available, call `vendor_facts` (topic `quote_traps`, `pricing`, `support_deadlines`) and `einvoicing_status` first.
 3. General contract points: price cap, code and accounts in the client's name, acceptance by written report, warranty, reversibility, exit cost. If the `software-buyer-france` plugin is installed, its `review-quote` skill covers them in depth.
 4. If the `prix-logiciel` MCP tools are available, position the amount with `position_quote` (project type `erp`).
 5. Output: verdict, red flags by severity with quotes and sections, missing items, questions for the integrator.

@@ -19,6 +19,8 @@ Facts tagged **VOLATILE** in `references/odoo-20-facts.md` change weekly. If web
 - Current prices on https://www.odoo.com/pricing (local currency page).
 If you cannot check, say "as of 24 Sept 2026" next to each volatile fact.
 
+If the `erp-facts` MCP tools are available, `odoo_20_changes` and `vendor_facts` (vendor `odoo`) return the same sourced facts, kept up to date.
+
 ## Step 1 — Gather the situation (ask only what is missing)
 Current version · edition (Community / Enterprise) · hosting (Odoo Online / Odoo.sh / on-premise) · apps used · number of custom modules and whether Studio is used · OCA/third-party modules · integrations (EDI, e-commerce, banks, BI, scripts calling the API) · business calendar (closing periods, seasonal peaks) · who maintains the code today.
 

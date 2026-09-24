@@ -1,0 +1,19 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "eu.jaikin/erp-facts",
+  "title": "ERP Facts",
+  "description": "Sourced, dated ERP facts: Odoo 20 changes, support deadlines, prices, e-invoicing status.",
+  "version": "0.2.0",
+  "websiteUrl": "https://www.jaikin.eu/",
+  "repository": {
+    "url": "https://github.com/Jaikin-SASU/claude-plugin-erp-upgrade",
+    "source": "github",
+    "subfolder": "server"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://erp-mcp.jaikin.eu/mcp"
+    }
+  ]
+}

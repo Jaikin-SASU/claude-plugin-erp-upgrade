@@ -1,0 +1,8 @@
+{
+  "name": "erp-facts-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [{ "pattern": "erp-mcp.jaikin.eu", "custom_domain": true }],
+  "observability": { "enabled": false }
+}

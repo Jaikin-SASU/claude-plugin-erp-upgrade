@@ -1,0 +1,118 @@
+{
+  "checked_on": "2026-09-24",
+  "certainty_levels": {
+    "official": "official vendor or administration source",
+    "code": "read in the public source code (Odoo Community, branch 20.0)",
+    "third_party": "third-party source, not confirmed by the vendor",
+    "not_found": "not found in public sources on the check date"
+  },
+  "vendors": [
+    {
+      "id": "odoo",
+      "name": "Odoo (Community / Enterprise)",
+      "facts": [
+        { "topic": "pricing", "statement": "Enterprise Standard plan: 24.90 EUR per user per month, yearly billing (19.90 EUR first-year discount).", "source_url": "https://www.odoo.com/fr_FR/pricing", "certainty": "official", "volatile": true },
+        { "topic": "pricing", "statement": "Enterprise Custom plan: 44.90 EUR per user per month, yearly billing (35.90 EUR first-year discount), up about 20 % from 37.40 EUR observed on 2026-09-23.", "source_url": "https://www.odoo.com/fr_FR/pricing", "certainty": "official", "volatile": true },
+        { "topic": "pricing", "statement": "Light User licence (active employee record not linked to a user account) introduced by Enterprise agreement v13 of 2026-09-24; published 'at 7,90 EUR' via an advisor.", "source_url": "https://github.com/odoo/documentation/commit/abd5c802300b98558259ce8c4057c04b882b4deb", "certainty": "official", "volatile": true },
+        { "topic": "plans", "statement": "Access to data via the external API is only available on Custom pricing plans.", "source_url": "https://www.odoo.com/documentation/20.0/developer/reference/external_api.html", "certainty": "official" },
+        { "topic": "deployment", "statement": "Odoo Online (SaaS), Odoo.sh (PaaS with Git repositories for custom modules) or on-premise. Custom modules on Odoo Online must be 'Covered' (maintenance per 100 lines of code, agreement v13).", "source_url": "https://www.odoo.com/documentation/20.0/legal/terms/enterprise.html", "certainty": "official" },
+        { "topic": "release_cycle", "statement": "One major version per year; Odoo 20 released on 2026-09-24. Standard support covers each major version for three years.", "source_url": "https://www.odoo.com/documentation/20.0/administration/standard_extended_support.html", "certainty": "official" },
+        { "topic": "support_deadlines", "statement": "End of standard support: 19.0 Sept 2028 (planned), 18.0 Sept 2027, 17.0 Sept 2026, 16.0 Sept 2025 (extended support only, not on Online).", "source_url": "https://www.odoo.com/documentation/20.0/administration/standard_extended_support.html", "certainty": "official" },
+        { "topic": "support_deadlines", "statement": "Enterprise agreement 5.1: a database older than the 3 latest major versions can be charged an extra 25 % of the annualised price, not earlier than 6 months after a new major release.", "source_url": "https://www.odoo.com/documentation/20.0/legal/terms/enterprise.html", "certainty": "official" },
+        { "topic": "migration", "statement": "The official upgrade service (upgrade.odoo.com) covers standard modules and Studio; custom and uncovered partner modules are not ported by it. Community: OCA OpenUpgrade.", "source_url": "https://www.odoo.com/documentation/20.0/administration/upgrade.html", "certainty": "official" },
+        { "topic": "migration", "statement": "On 2026-09-24, upgrade.odoo.com offered targets 19.0, 18.0 and 17.0 only; 20.0 was not yet selectable.", "source_url": "https://upgrade.odoo.com/", "certainty": "official", "volatile": true },
+        { "topic": "einvoicing", "statement": "Odoo is registered as an approved e-invoicing platform (PA) in France (listed 2026-04-15).", "source_url": "https://www.impots.gouv.fr/je-consulte-la-liste-des-plateformes-agreees", "certainty": "official", "volatile": true },
+        { "topic": "quote_traps", "statement": "Licences quoted at the first-year discount; Light Users not counted; Standard plan quoted while the scope needs API, Studio or custom code; custom modules said to migrate 'automatically'; OCA dependencies without a target-version branch; integrations on deprecated XML-RPC/JSON-RPC.", "source_url": "https://github.com/Jaikin-SASU/claude-plugin-erp-upgrade/blob/main/references/vendors/odoo.md", "certainty": "official" }
+      ]
+    },
+    {
+      "id": "business-central",
+      "name": "Microsoft Dynamics 365 Business Central",
+      "facts": [
+        { "topic": "pricing", "statement": "France list prices excl. VAT per user per month, annual payment: Essentials 69.30 EUR, Premium 95.30 EUR, Team Members 6.90 EUR. Bought through a partner. Third-party figures around 85 EUR for France are wrong.", "source_url": "https://www.microsoft.com/fr-fr/dynamics-365/products/business-central/pricing", "certainty": "official", "volatile": true },
+        { "topic": "deployment", "statement": "Online (SaaS) or on-premise under the Modern Lifecycle Policy; sold through partners (CSP).", "source_url": "https://learn.microsoft.com/en-us/lifecycle/products/dynamics-365-business-central-onpremises-modern-policy", "certainty": "official" },
+        { "topic": "release_cycle", "statement": "Two major updates per year (April and October). Online: 5-month window to apply a major update, 1-month grace period, then enforced update; incompatible extensions might be automatically uninstalled.", "source_url": "https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/administration/update-rollout-timeline", "certainty": "official" },
+        { "topic": "support_deadlines", "statement": "On-premise versions supported about 18 months: v26 (2025 wave 1) until 2026-10-14; v27 (2025 wave 2) until 2027-04-06; v28 (2026 wave 1) until 2027-10-13.", "source_url": "https://learn.microsoft.com/en-us/lifecycle/products/dynamics-365-business-central-onpremises-modern-policy", "certainty": "official" },
+        { "topic": "customisation", "statement": "AL extensions; modifying the base application is documented for on-premise only, and Microsoft strongly recommends extensions.", "source_url": "https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/devenv-publish-code-customization", "certainty": "official" },
+        { "topic": "migration", "statement": "From NAV: via BC 14; C/AL customisations must be converted to AL, otherwise data from customised tables cannot be carried forward. The BC14 reimplementation tool does not carry transaction history.", "source_url": "https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/administration/migrate-nav", "certainty": "official" },
+        { "topic": "einvoicing", "statement": "Microsoft is not a registered PA; the 'E-Reporting FR' extension (UBL/Peppol, Factur-X) sends documents through the E-Document framework to a PA.", "source_url": "https://learn.microsoft.com/en-us/dynamics365/business-central/localfunctionality/france/enable-electronic-invoicing-france", "certainty": "official" }
+      ]
+    },
+    {
+      "id": "sage",
+      "name": "Sage 100 / Sage X3",
+      "facts": [
+        { "topic": "pricing", "statement": "Sage France price guide of 2025-10-20 (annual, first user, Classic / Assistance / Serenity): Sage 100 Comptabilité and Gestion commerciale Essentials 983 / 1,139 / 1,309 EUR; Standard 1,367 / 1,566 / 1,807 EUR; Sage 100 Entreprise Standard 2,035 / 2,334 / 2,690 EUR. Sage X3 on quote.", "source_url": "https://www.sage.com/fr-fr/-/media/files/sagedotcom/france/documents/pdf/conditions-generales/2025/guide-produits-et-tarifs_2025_10_20_sans_spc_v1.pdf", "certainty": "official", "volatile": true },
+        { "topic": "deployment", "statement": "Sage 100: on-premise or Sage Partner Cloud (SPC) hosting. Sage X3: SaaS, private cloud or on-premise, through partners.", "source_url": "https://www.sage.com/en-us/sage-business-cloud/sage-x3/", "certainty": "official" },
+        { "topic": "support_deadlines", "statement": "Sage 30 / Sage 100 i7 and V16 or earlier: contracts no longer renewed after 2026-11-30; all expire at the latest on 2027-11-30, after which the software is read-only.", "source_url": "https://fr-kb.sage.com/portal/app/portlets/results/viewsolution.jsp?solutionid=250725074523350", "certainty": "official" },
+        { "topic": "release_cycle", "statement": "Sage X3: two releases per year since November 2022; 2026 R1 = 12.0.39.", "source_url": "https://online-help.sagex3.com/erp/12/en-us/Content/V7DEV/getting-started_quick-upgrade-guide.html", "certainty": "official" },
+        { "topic": "customisation", "statement": "Sage 100 business objects and specific SQL must be adapted for SPC hosting.", "source_url": "https://fr-kb.sage.com/portal/app/portlets/results/viewsolution.jsp?solutionid=230313141225653", "certainty": "official" },
+        { "topic": "einvoicing", "statement": "Sage is a registered PA (listed 2025-12-22); included at no extra cost up to a monthly invoice cap, then pay-per-use.", "source_url": "https://www.sage.com/fr-fr/dematerialisation/facture-electronique/sage-plateforme-de-dematerialisation-partenaire/", "certainty": "official", "volatile": true }
+      ]
+    },
+    {
+      "id": "sap-business-one",
+      "name": "SAP Business One",
+      "facts": [
+        { "topic": "pricing", "statement": "No published price ('request a quote'); figures around 91 EUR per month are third-party.", "source_url": "https://www.sap.com/france/products/erp/business-one.html", "certainty": "official" },
+        { "topic": "support_deadlines", "statement": "9.x mainstream maintenance ended; 10.0 mainstream maintenance until 2028-12-31 (third-party sites saying 2026 are wrong); at least five years of mainstream maintenance; no extended maintenance offered.", "source_url": "https://support.sap.com/en/offerings-programs/support-small-medium-enterprises/business-one/maintenance.html", "certainty": "official" },
+        { "topic": "migration", "statement": "Direct upgrades only between consecutive releases; feature packs since 10.0.", "source_url": "https://support.sap.com/en/offerings-programs/support-small-medium-enterprises/business-one/upgrades-patches.html", "certainty": "official" },
+        { "topic": "customisation", "statement": "SDK: DI API, UI API and Service Layer (OData v4 preferred since FP 2405).", "source_url": "https://help.sap.com/docs/SAP_BUSINESS_ONE", "certainty": "official" },
+        { "topic": "einvoicing", "statement": "SAP SE is a registered PA (listed 2026-01-15); Business One relies on SAP DRC Cloud Edition (subscription), described as under development in an SAP Community post.", "source_url": "https://news.sap.com/france/2026/02/facturation-electronique-2026-sap-franchit-une-etape-decisive-et-obtient-la-validation-en-tant-que-plateforme-agreee-pa/", "certainty": "official", "volatile": true }
+      ]
+    },
+    {
+      "id": "divalto",
+      "name": "Divalto infinity",
+      "facts": [
+        { "topic": "pricing", "statement": "No price published on the vendor site.", "source_url": "https://divalto.atlassian.net/wiki/spaces/UDI111/pages/10847496458/Pr+sentation+de+Divalto+infinity", "certainty": "not_found" },
+        { "topic": "support_deadlines", "statement": "Each 10.x version maintained 3 years (Solutions Metiers versions: 12 months). 10.12 until 2028-06-01; 10.11 until 2027-06-01; 10.10 standard maintenance ended 2026-06-01, extended until 2028-06-01; 10.7 extended until 2026-12-31 (table updated 2026-06-29).", "source_url": "https://divalto.atlassian.net/wiki/spaces/VP/pages/10535305298/Divalto+infinity+politique+de+maintenance+et+commercialisation", "certainty": "official" },
+        { "topic": "customisation", "statement": "SDK with 'overload technology' presented as preserving upgrades; connectors and web services.", "source_url": "https://divalto.atlassian.net/wiki/spaces/UDI111/pages/10847496458/Pr+sentation+de+Divalto+infinity", "certainty": "official" },
+        { "topic": "einvoicing", "statement": "Not a registered PA; PA service through Docoon (listed 2025-12-15).", "source_url": "https://divalto.atlassian.net/wiki/spaces/VP/pages/11936104458/R+forme+de+la+Facturation+Electronique+entre+entreprises+France", "certainty": "official" }
+      ]
+    },
+    {
+      "id": "cegid",
+      "name": "Cegid XRP Flex",
+      "facts": [
+        { "topic": "pricing", "statement": "No public price (contact form).", "source_url": "https://www.cegid.com/fr/produits/cegid-xrp-flex/", "certainty": "official" },
+        { "topic": "deployment", "statement": "SaaS through integration partners; functional updates applied automatically with the customer's approval.", "source_url": "https://www.cegid.com/fr/produits/cegid-xrp-flex/", "certainty": "official" },
+        { "topic": "einvoicing", "statement": "Cegid is a registered PA (listed 2025-12-18), included in XRP Flex.", "source_url": "https://www.impots.gouv.fr/je-consulte-la-liste-des-plateformes-agreees", "certainty": "official", "volatile": true }
+      ]
+    },
+    {
+      "id": "sylob",
+      "name": "Sylob (Forterro)",
+      "facts": [
+        { "topic": "pricing", "statement": "Indicative 2026 prices excl. VAT per user per month: Essentiel 80 EUR, Avance 125 EUR, Expert on quote; implementation billed separately.", "source_url": "https://www.sylob.com/fr/tarifs", "certainty": "official", "volatile": true },
+        { "topic": "deployment", "statement": "Essentiel and Avance on shared cloud, Expert on dedicated instance; AWS in the EU; SaaS customers automatically upgraded to the latest version.", "source_url": "https://www.sylob.com/fr/cloud-sylob", "certainty": "official" },
+        { "topic": "einvoicing", "statement": "Not a registered PA; partnership with a PA (Esker named in 2023).", "source_url": "https://www.sylob.com/fr/fonctionnalites/facturation-electronique", "certainty": "official" }
+      ]
+    },
+    {
+      "id": "ebp",
+      "name": "EBP (SME range)",
+      "facts": [
+        { "topic": "pricing", "statement": "Gestion Commerciale ACTIV 50 EUR excl. VAT per month; higher plans on quote.", "source_url": "https://www.ebp.com/logiciel-gestion-commerciale/", "certainty": "official", "volatile": true },
+        { "topic": "einvoicing", "statement": "Not a registered PA; native integration with Shine (listed 2026-05-21).", "source_url": "https://www.ebp.com/pdp-plateforme-dematerialisation-partenaire/", "certainty": "official" }
+      ]
+    }
+  ],
+  "einvoicing_france": {
+    "statement": "Reception of e-invoices mandatory for all companies since September 2026; issuance mandatory for SMEs from September 2027. Official list of approved platforms (PA) updated 2026-09-22: 149 operators meeting all conditions, 14 awaiting interoperability tests.",
+    "source_url": "https://www.impots.gouv.fr/je-consulte-la-liste-des-plateformes-agreees",
+    "certainty": "official",
+    "volatile": true
+  },
+  "odoo_20_changes": [
+    { "area": "requirements", "statement": "Python >= 3.12 (was 3.10 in 19) and PostgreSQL >= 16 (was 13).", "source_url": "https://www.odoo.com/documentation/20.0/administration/on_premise/source.html", "certainty": "official" },
+    { "area": "security", "statement": "ir.model.access and ir.rule merged into ir.access; ir.model.access.csv replaced by ir.access.csv (id,name,model_id,group_id/id,operation,domain). Every custom module's security files must be rewritten.", "source_url": "https://github.com/odoo/odoo/pull/166359", "certainty": "code" },
+    { "area": "frontend", "statement": "OWL 3.0.0-alpha.49 (19.0: 2.8.4); the OWL 2 to 3 guide lists 22 breaking changes; a compatibility layer is described as a temporary bridge.", "source_url": "https://github.com/odoo/owl/blob/master/doc/v3/owl/migration_owl2_to_owl3.md", "certainty": "code" },
+    { "area": "orm", "statement": "read_group becomes public with a new signature (domain, groupby, aggregates, having, offset, limit, order); old calls with fields and lazy= break. _table_query removed; _check_access deprecated.", "source_url": "https://github.com/odoo/odoo/commit/cfeab5eefe8818559ecaa6901857ff0e346aa885", "certainty": "code" },
+    { "area": "orm", "statement": "Tracking values removed; tracking messages generated on the fly.", "source_url": "https://www.odoo.com/odoo-20-release-notes", "certainty": "official" },
+    { "area": "modules", "statement": "Community modules removed or merged in 20.0: base_vat, base_iban, stock_picking_batch (into stock), website_sale_wishlist and website_sale_comparison (into website_sale), hr_org_chart, hr_homeworking, delivery_mondialrelay, transifex, hr_work_entry_holidays, l10n_fr_hr_work_entry_holidays.", "source_url": "https://github.com/odoo/odoo/tree/20.0/addons", "certainty": "code" },
+    { "area": "api", "statement": "XML-RPC and JSON-RPC deprecated; the db service was removed in Odoo 20; common and object services scheduled for removal in Odoo 22 (fall 2028). Replacement: JSON-2 (/json/2/<model>/<method>), Custom plan only.", "source_url": "https://www.odoo.com/documentation/20.0/developer/reference/external_api.html", "certainty": "official" },
+    { "area": "functional", "statement": "Field Service discontinued (features moved into Planning); payroll work entries removed; bank-impacting journal entries must originate from bank transactions; account groups replaced by parent accounts; payment statuses renamed; expenses become draft vendor bills.", "source_url": "https://www.odoo.com/odoo-20-release-notes", "certainty": "official" },
+    { "area": "ecosystem", "statement": "On 2026-09-24 OCA had no 20.0 branches (OpenUpgrade included); OpenUpgrade 18 to 19 coverage was still partial one year after 19.", "source_url": "https://github.com/OCA/OpenUpgrade", "certainty": "official", "volatile": true }
+  ]
+}

@@ -12,7 +12,7 @@ If the user passed arguments, they are: $ARGUMENTS
 
 ## Route by vendor
 - **Odoo, target 20** → use the `odoo-20-upgrade` skill of this plugin (deep checklist and scanners), then complete with this method.
-- **Other vendors** → read `${CLAUDE_PLUGIN_ROOT}/references/vendors/<vendor>.md` if it exists (see `${CLAUDE_PLUGIN_ROOT}/references/vendors/INDEX.md` for the file of each ERP). Use only facts found there or verified live (vendor documentation, with URL and date). If a vendor fact is unknown, write it as a question for the vendor or integrator.
+- **Other vendors** → read `${CLAUDE_PLUGIN_ROOT}/references/vendors/<vendor>.md` if it exists (see `${CLAUDE_PLUGIN_ROOT}/references/vendors/INDEX.md` for the file of each ERP). Use only facts found there or verified live (vendor documentation, with URL and date). If a vendor fact is unknown, write it as a question for the vendor or integrator. If the `erp-facts` MCP tools are available, call `vendor_facts`, `support_deadlines` or `einvoicing_status` first: same sourced facts, kept up to date.
 
 ## Workflow
 1. **Type of migration**: same-ERP version upgrade, same-vendor product change (e.g. on-premise to SaaS edition), or ERP-to-ERP / spreadsheets-to-ERP.

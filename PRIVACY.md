@@ -9,6 +9,9 @@ Skills run inside your Claude client. Requirements, quotes and other documents y
 - `scan_addons.py` reads files on your machine only; it makes no network request.
 - `inventory_instance.py` connects only to the Odoo instance URL you provide, with the API key read from the `ODOO_API_KEY` environment variable. It calls read-only methods, never prints or stores the key, and sends nothing to JAIKIN or any third party.
 
+## MCP server `erp-facts`
+The plugin declares the read-only `erp-facts` MCP server (https://erp-mcp.jaikin.eu/mcp). It receives only tool arguments (a vendor name, a topic or an area), stores and logs nothing at application level, and serves static sourced facts; the hosting provider (Cloudflare) processes technical request metadata for security. No account, no cookies, no conversation data.
+
 ## MCP server `prix-logiciel`
 The plugin declares the read-only `prix-logiciel` MCP server (https://mcp.jaikin.eu/mcp). It receives only tool arguments (project type, keywords, amounts to position), stores and logs nothing at application level; the hosting provider (Cloudflare) processes technical request metadata for security. Full policy: https://github.com/Jaikin-SASU/claude-plugin-software-buyer/blob/main/PRIVACY.md
 

@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "erp-facts": {
+      "type": "http",
+      "url": "https://erp-mcp.jaikin.eu/mcp"
+    },
     "prix-logiciel": {
       "type": "http",
       "url": "https://mcp.jaikin.eu/mcp"
