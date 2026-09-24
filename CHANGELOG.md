@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.2.0 — 2026-09-24 : multi-ERP (choose-erp, fit-gap, erp-migration, erp-cost, review-erp-quote) with sourced vendor references (Business Central, Sage, SAP Business One, Divalto, Cegid, Sylob, EBP, e-invoicing PA list); Odoo skill renamed odoo-20-upgrade with ${CLAUDE_PLUGIN_ROOT} script paths; legacy commands/ removed; displayName.
+
 ## 0.1.0 — 2026-09-24
 
 First published version, on the day of the Odoo 20 release:

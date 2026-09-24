@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 from xmlrpc.server import SimpleXMLRPCDispatcher
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "skills" / "odoo-20-migration-readiness" / "scripts"
+SCRIPTS = ROOT / "skills" / "odoo-20-upgrade" / "scripts"
 INVENTORY = SCRIPTS / "inventory_instance.py"
 
 FAKE_API_KEY = "secret-test-api-key-DO-NOT-LEAK"

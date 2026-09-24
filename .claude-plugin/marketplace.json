@@ -1,8 +1,15 @@
 {
+  "$schema": "https://code.claude.com/schemas/marketplace.json",
   "name": "jaikin-erp",
   "description": "JAIKIN plugins for planning ERP projects and upgrades.",
   "owner": { "name": "JAIKIN", "url": "https://www.jaikin.eu/" },
   "plugins": [
-    { "name": "erp-upgrade-fit-gap", "source": "./", "description": "Odoo 20 migration readiness, fit-gap, cost estimate and integrator quote review." }
+    {
+      "name": "erp-upgrade-fit-gap",
+      "source": "./",
+      "displayName": "ERP Upgrade & Fit-Gap Advisor",
+      "category": "productivity",
+      "description": "Multi-ERP advisor: choose, fit-gap, migrate, cost and review quotes for Odoo, Business Central, Sage, SAP B1 and French ERPs — plus a deep Odoo 20 upgrade module."
+    }
   ]
 }

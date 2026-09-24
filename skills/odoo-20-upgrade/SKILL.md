@@ -1,13 +1,16 @@
 ---
-name: odoo-20-migration-readiness
+name: odoo-20-upgrade
 description: Assess whether and how to upgrade an Odoo database to Odoo 20 (from 14, 15, 16, 17, 18 or 19) — support deadlines and extra fees, technical prerequisites, custom-module breaking changes (ir.access, OWL 3, read_group, removed modules), functional process changes per app, licensing changes (Light Users), OCA readiness, and the upgrade execution plan. Use when the user asks "should we migrate to Odoo 20?", "migration Odoo 20", "is our Odoo ready for 20?", "what breaks in Odoo 20?", or shares an addons folder, an Odoo URL or an integrator's migration quote. Includes read-only scripts to scan custom modules and inventory an instance.
+argument-hint: "<current Odoo version, edition, hosting, and optionally a path to custom addons>"
 ---
 
 # Odoo 20 migration readiness
 
+If the user passed arguments, they are: $ARGUMENTS
+
 Produce a **traffic-light readiness report** and a **phased plan**, grounded in sourced facts. Never state an Odoo 20 fact that is not in `references/odoo-20-facts.md` or that you have not verified live with its URL.
 
-**Language:** answer in the user's language. Keep technical identifiers (model names, file names) as is.
+**Language:** answer in the user's language. Keep technical identifiers (model names, file names) as is. Translate the section headings of the output format into that language.
 
 ## Step 0 — Re-check the volatile facts (always)
 Facts tagged **VOLATILE** in `references/odoo-20-facts.md` change weekly. If web access is available, check them live and state the check date:
@@ -20,8 +23,8 @@ If you cannot check, say "as of 24 Sept 2026" next to each volatile fact.
 Current version · edition (Community / Enterprise) · hosting (Odoo Online / Odoo.sh / on-premise) · apps used · number of custom modules and whether Studio is used · OCA/third-party modules · integrations (EDI, e-commerce, banks, BI, scripts calling the API) · business calendar (closing periods, seasonal peaks) · who maintains the code today.
 
 If the user can provide them, run the scripts (both read-only, standard-library Python ≥ 3.9):
-- **Custom code scan, no database access**: `python3 scripts/scan_addons.py <path-to-custom-addons> --format text` (or `--format json`). It flags security files to rewrite (`ir.model.access.csv`, `ir.rule`), OWL 2 APIs, old `read_group` calls, tracking values, removed dependencies, legacy view syntax, deprecated external API clients, and gives effort points per module.
-- **Instance inventory, read-only**: the user sets `ODOO_API_KEY` in their environment, then runs `python3 scripts/inventory_instance.py --url https://<db>.odoo.com --db <db> [--login <login>] --format text`. It lists version, installed modules classified Odoo / OCA / third-party / custom, Studio customisations, automated and server actions, internal users vs employees without user (Light User exposure). It only calls read methods and never prints the key. Never ask the user to paste their API key in the conversation.
+- **Custom code scan, no database access**: `python3 "${CLAUDE_PLUGIN_ROOT}/skills/odoo-20-upgrade/scripts/scan_addons.py" <path-to-custom-addons> --format text` (or `--format json`). It flags security files to rewrite (`ir.model.access.csv`, `ir.rule`), OWL 2 APIs, old `read_group` calls, tracking values, removed dependencies, legacy view syntax, deprecated external API clients, and gives effort points per module.
+- **Instance inventory, read-only**: the user sets `ODOO_API_KEY` in their environment, then runs `python3 "${CLAUDE_PLUGIN_ROOT}/skills/odoo-20-upgrade/scripts/inventory_instance.py" --url https://<db>.odoo.com --db <db> [--login <login>] --format text`. It lists version, installed modules classified Odoo / OCA / third-party / custom, Studio customisations, automated and server actions, internal users vs employees without user (Light User exposure). It only calls read methods and never prints the key. Never ask the user to paste their API key in the conversation.
 
 ## Step 2 — Assess the 8 blocks
 Use `references/migration-checklist.md` for the detailed items of each block. Rate each block 🟢 ready / 🟠 work needed / 🔴 blocking, with evidence.

@@ -1,10 +1,11 @@
 {
   "name": "erp-upgrade-fit-gap",
-  "version": "0.1.0",
-  "description": "Plan Odoo projects and upgrades with sourced facts: deep Odoo 20 migration readiness checklist (support deadlines, ir.access and OWL 3 breaking changes, functional changes per app, Light User licensing, OCA readiness), read-only scripts to scan custom modules and inventory an instance, fit-gap analysis, 5-year cost estimate and integrator quote review. Answers in the user's language.",
+  "displayName": "ERP Upgrade & Fit-Gap Advisor",
+  "version": "0.2.0",
+  "description": "Choose, plan, cost and upgrade an ERP with sourced facts: ERP selection shortlist, requirement-by-requirement fit-gap, migration plan, 5-year cost and integrator quote review for Odoo, Microsoft Dynamics 365 Business Central, Sage, SAP Business One, Divalto, Cegid, Sylob and EBP — with a deep Odoo 20 upgrade module (sourced checklist and read-only scanners for custom modules and instances) and French e-invoicing platform checks. Answers in the user's language.",
   "author": { "name": "JAIKIN", "url": "https://www.jaikin.eu/" },
   "homepage": "https://www.jaikin.eu/",
   "repository": "https://github.com/Jaikin-SASU/claude-plugin-erp-upgrade",
   "license": "MIT",
-  "keywords": ["odoo", "odoo-20", "erp", "migration", "upgrade", "fit-gap", "oca", "licensing", "quote-review", "france"]
+  "keywords": ["erp","erp-selection","fit-gap","migration","upgrade","odoo","odoo-20","business-central","sage","sap-business-one","quote-review","e-invoicing","france"]
 }

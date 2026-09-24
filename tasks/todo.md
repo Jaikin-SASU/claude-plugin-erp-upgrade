@@ -16,7 +16,7 @@ Rédigé le 24/09/2026 (jour de sortie d'Odoo 20). Soumission prévue APRÈS l'a
 ## Contenu
 
 ### Skills (anglais, réponses dans la langue de l'utilisateur)
-1. **`odoo-20-migration-readiness`** — LA checklist approfondie, en 8 blocs :
+1. **`odoo-20-upgrade`** — LA checklist approfondie, en 8 blocs :
    1. *Décider* : support (17 hors support standard en sept. 2026 ; +25 % du prix annualisé pour une base hors des 3 dernières versions, ~6 mois après la sortie ; Online : upgrade obligatoire tous les 2 ans), 19 maintenant ou 20 plus tard selon le profil.
    2. *Inventaire* : version, hébergement (Online / Odoo.sh / on-prem), modules standard / OCA / maison / Studio, intégrations (XML-RPC et JSON-RPC dépréciés, service `db` retiré en 20, JSON-2 seulement sur l'offre Custom), rapports, actions automatisées.
    3. *Prérequis techniques* : Python ≥ 3.12, PostgreSQL ≥ 16, Ubuntu 24.04 / Fedora 42 pour les paquets.
@@ -26,9 +26,9 @@ Rédigé le 24/09/2026 (jour de sortie d'Odoo 20). Soumission prévue APRÈS l'a
    7. *OCA et tiers* : aucune branche 20.0 au 24/09 ; OpenUpgrade 19 encore incomplet un an après → prévoir des mois ; vérifier chaque dépendance en direct.
    8. *Exécution* : base de test sur upgrade.odoo.com (cible 20 pas encore ouverte au 24/09), gel du code, filestore, neutralisation, tests (EDI/API, actions automatisées, exports, modèles de mail), répétition la veille, retour arrière, recette par procès-verbal.
    Sortie : un rapport « feu tricolore » par bloc, les bloquants, un plan en phases, et les questions à poser à l'intégrateur.
-2. **`odoo-fit-gap`** — une matrice exigence par exigence (standard, configuration, Studio, OCA ou développement), en tenant compte des contraintes de l'offre : sur Standard, pas de modules maison ni d'API ; Custom est obligatoire pour Studio, l'API et le code maison.
-3. **`odoo-cost-estimate`** — licences au tarif public daté, dont Light User et la remise de 1re année signalée comme telle ; hébergement Online / Odoo.sh / sur site ; implémentation et migration via le serveur `prix-logiciel` du plugin n° 1 ; jamais « 0 € ».
-4. **`review-odoo-integrator-quote`** — les pièges propres à Odoo :
+2. **`fit-gap`** — une matrice exigence par exigence (standard, configuration, Studio, OCA ou développement), en tenant compte des contraintes de l'offre : sur Standard, pas de modules maison ni d'API ; Custom est obligatoire pour Studio, l'API et le code maison.
+3. **`erp-cost`** — licences au tarif public daté, dont Light User et la remise de 1re année signalée comme telle ; hébergement Online / Odoo.sh / sur site ; implémentation et migration via le serveur `prix-logiciel` du plugin n° 1 ; jamais « 0 € ».
+4. **`review-erp-quote`** — les pièges propres à Odoo :
    - modules maison sur une offre qui ne les accepte pas ;
    - décompte des utilisateurs et des Light Users ;
    - remise de 1re année présentée comme le prix normal ;
@@ -43,11 +43,11 @@ Rédigé le 24/09/2026 (jour de sortie d'Odoo 20). Soumission prévue APRÈS l'a
 - Pas de nouveau serveur MCP distant : le plugin réutilise `prix-logiciel` (mcp.jaikin.eu).
 
 ### Commandes
-`/odoo-migration-check`, `/odoo-fit-gap`, `/odoo-cost`, `/review-odoo-quote`
+`/erp-upgrade-fit-gap:odoo-20-upgrade`, `/erp-upgrade-fit-gap:fit-gap`, `/erp-upgrade-fit-gap:erp-cost`, `/erp-upgrade-fit-gap:review-erp-quote`
 
 ## Étapes
 - [x] 0. Validation de ce plan par Victor (nom, périmètre des scripts, calendrier) — validé par Victor le 24/09 : nom « ERP Upgrade & Fit-Gap », inventaire d'instance inclus
-- [x] 1. Faits sourcés : `skills/odoo-20-migration-readiness/references/odoo-20-facts.md` (URL, citation, niveau de certitude)
+- [x] 1. Faits sourcés : `skills/odoo-20-upgrade/references/odoo-20-facts.md` (URL, citation, niveau de certitude)
 - [x] 2. Skills + références (rédigés par Claude), commandes, README EN/FR, PRIVACY, LICENSE MIT
 - [x] 3. Scripts `scan_addons.py` / `inventory_instance.py` en TDD (cursor-agent), avec des modules de test fictifs (un module 18 avec `ir.model.access.csv`, OWL 2, `read_group` à l'ancienne, `depends: stock_picking_batch`) — 21 tests
 - [x] 4. Évaluations : un module piégé (le scan doit tout trouver), un devis d'intégrateur piégé, un cahier des charges pour le fit-gap — devis piégé 9/10 → checklist complétée : saut de versions cumulatif ; scan réel sur des modules 19 : effort regroupé par fichier

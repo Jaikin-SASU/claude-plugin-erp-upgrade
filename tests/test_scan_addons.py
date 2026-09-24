@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "skills" / "odoo-20-migration-readiness" / "scripts"
+SCRIPTS = ROOT / "skills" / "odoo-20-upgrade" / "scripts"
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "addons"
 SCAN = SCRIPTS / "scan_addons.py"
 

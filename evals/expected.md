@@ -1,6 +1,6 @@
 # Critères de réussite
 
-## /review-odoo-quote evals/fixtures/devis-migration-odoo20-piege.md — doit détecter
+## /erp-upgrade-fit-gap:review-erp-quote evals/fixtures/devis-migration-odoo20-piege.md — doit détecter
 1. Le service d'upgrade Odoo ne migre PAS les 9 modules spécifiques (ni les OCA) → portage du code non chiffré (ir.access, OWL 3…).
 2. OCA : aucune branche 20.0 au 24/09 → modules OCA non disponibles.
 3. upgrade.odoo.com n'offre pas encore la cible 20.0 au 24/09 → date du 05/10 irréaliste.

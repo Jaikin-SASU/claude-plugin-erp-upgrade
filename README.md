@@ -1,35 +1,36 @@
-# ERP Upgrade & Fit-Gap Advisor — for Odoo (Claude plugin)
+# ERP Upgrade & Fit-Gap Advisor (Claude plugin)
 
-**Plan Odoo projects and upgrades with sourced facts, not guesses.** Built on Odoo 20 release day (24 Sept 2026) from Odoo's official documentation, release notes and the public Community source code — every fact carries its URL, check date and certainty level.
+**Choose, plan, cost and upgrade an ERP with sourced facts, not guesses.** For French SMEs and mid-size companies evaluating or running Odoo, Microsoft Dynamics 365 Business Central, Sage 100 / X3, SAP Business One, Divalto, Cegid, Sylob or EBP — with a deep **Odoo 20 upgrade** module built on Odoo 20 release day (24 Sept 2026).
 
-*Not affiliated with or endorsed by Odoo S.A. "Odoo" is a trademark of Odoo S.A.*
+Every vendor fact carries its URL, check date and certainty level (official / third-party / not found). Nothing is invented: unknowns become questions for the vendor.
+
+*Independent plugin, not affiliated with or endorsed by any ERP vendor. Product names are trademarks of their owners.*
 
 [Français plus bas](#français)
 
-## What it does
+## Skills
 
-| Command | Skill | You get |
-|---|---|---|
-| `/odoo-migration-check` | `odoo-20-migration-readiness` | A traffic-light readiness report in 8 blocks (decide, inventory, prerequisites, custom code, functional changes, licensing, OCA, execution), blocking items, a phased plan, questions for your integrator, and the list of facts used with their sources |
-| `/odoo-gap-analysis <file>` | `odoo-fit-gap` | A requirement-by-requirement matrix: standard, configuration, Studio, OCA, development or outside Odoo — with plan and hosting consequences |
-| `/odoo-cost` | `odoo-cost-estimate` | A 5-year cost: licences (incl. Light Users, first-year discount flagged), hosting, implementation or migration, maintenance |
-| `/review-odoo-quote <file>` | `review-odoo-integrator-quote` | Odoo-specific red flags in an integrator's quote, plus general contract checks |
+Invoke as `/erp-upgrade-fit-gap:<skill>` or just describe your need — skills trigger on their own.
 
-### Read-only helper scripts (Python ≥ 3.9, standard library only)
-- `scan_addons.py <addons-folder>` — static scan of your custom modules, **no database access**: security files to rewrite for the new `ir.access` model, OWL 2 APIs, old `read_group` calls, tracking values, dependencies on modules removed or merged in 20, legacy view syntax, deprecated XML-RPC/JSON-RPC clients. Effort points per module.
-- `inventory_instance.py --url … --db …` — read-only inventory of an instance through its API key (read from the `ODOO_API_KEY` environment variable, never printed or stored): version, modules by origin (Odoo / OCA / third-party / custom), Studio customisations, automations, internal users vs employees without user (Light User exposure). Only read methods are allowed (hard-coded whitelist).
+| Skill | You get |
+|---|---|
+| `choose-erp` | Standard ERP, vertical or custom? A weighted shortlist of 2–4 ERPs from your profile, sourced vendor facts, and a demo script of 5 real scenarios to impose on every vendor |
+| `fit-gap` | Requirement-by-requirement matrix: standard, configuration, low-code, add-on, development or outside the ERP — with edition, plan, hosting and upgrade consequences |
+| `erp-migration` | Migration plan for a version upgrade or an ERP-to-ERP move: readiness by block, data migration and reconciliation, cut-over runbook, rollback, hypercare |
+| `erp-cost` | 5-year total cost per candidate on the same scope: licences by user type (only vendor-published prices, dated), hosting, implementation, integrations, upgrades |
+| `review-erp-quote` | Red flags in an integrator's quote: licence counting, scope vs fit-gap, customisation and upgrade exposure, data migration, testing, cut-over, e-invoicing |
+| `odoo-20-upgrade` | Deep Odoo 20 readiness in 8 blocks + read-only scanners (below) |
 
-### Key Odoo 20 facts covered (checked 24 Sept 2026)
-- 17.0 leaves standard support; +25 % fee risk for databases outside the three latest versions.
-- Python ≥ 3.12 and PostgreSQL ≥ 16.
-- `ir.model.access` + `ir.rule` merged into `ir.access`: every custom module's security must be rewritten.
-- OWL 3, new `read_group` signature, tracking values removed, several community modules merged.
-- XML-RPC/JSON-RPC deprecated, `db` service removed; JSON-2 requires the Custom plan.
-- Field Service discontinued (→ Planning), payroll work entries removed, bank entries must come from bank transactions, payment statuses renamed.
-- Light User licence (employees without user account) in the Enterprise agreement v13; Custom plan list price up about 20 % on 24 Sept 2026.
-- upgrade.odoo.com did not yet offer 20.0 as a target, and OCA had no 20.0 branches, on release day — the skill re-checks these live.
+### Vendor references (checked 24 Sept 2026)
+`references/vendors/`: Odoo, Business Central, Sage, SAP Business One, Divalto, Cegid, Sylob, EBP, and the **French e-invoicing approved-platform (PA) status of each ERP** from the official impots.gouv.fr list. Examples of what they settle: Business Central France list price 69.30 € (Essentials), SAP Business One 10.0 mainstream maintenance until 31 Dec 2028, Sage 100 V16-or-earlier contracts not renewed after 30 Nov 2026, Divalto 10.x maintenance table, which vendors are themselves a PA.
 
-Full list with sources: [`skills/odoo-20-migration-readiness/references/odoo-20-facts.md`](skills/odoo-20-migration-readiness/references/odoo-20-facts.md).
+### Odoo 20 module
+- 17.0 leaves standard support; +25 % fee risk for databases outside the three latest versions; Python ≥ 3.12 and PostgreSQL ≥ 16.
+- `ir.model.access` + `ir.rule` merged into `ir.access` (every custom module's security to rewrite), OWL 3, new `read_group`, merged modules, XML-RPC/JSON-RPC deprecated.
+- Field Service discontinued (→ Planning), payroll work entries removed, bank entries must come from bank transactions; Light User licence; Custom plan list price up about 20 % on 24 Sept 2026.
+- **Read-only scripts** (Python ≥ 3.9, standard library only):
+  - `scan_addons.py <addons-folder>` — static scan of custom modules, no database access, effort points per module.
+  - `inventory_instance.py --url … --db …` — read-only inventory through an API key read from `ODOO_API_KEY` (never printed or stored; hard-coded whitelist of read methods).
 
 ## Price data
 Cost and quote skills use the read-only `prix-logiciel` MCP server (French public procurement contracts and verified private-market figures), shared with the [Software Buyer France](https://github.com/Jaikin-SASU/claude-plugin-software-buyer) plugin.
@@ -39,23 +40,26 @@ Cost and quote skills use the read-only `prix-logiciel` MCP server (French publi
 /plugin marketplace add Jaikin-SASU/claude-plugin-erp-upgrade
 /plugin install erp-upgrade-fit-gap@jaikin-erp
 ```
+Once listed in the community marketplace: `/plugin marketplace add anthropics/claude-plugins-community` then `/plugin install erp-upgrade-fit-gap@claude-community`.
 
 ## Privacy
-See [PRIVACY.md](PRIVACY.md). Scripts run on your machine; your API key and data never leave it except towards your own Odoo instance.
+See [PRIVACY.md](PRIVACY.md). Scripts run on your machine; your API key and data never leave it except towards your own ERP instance.
 
 ## Maintainer
-Built and maintained by [JAIKIN](https://www.jaikin.eu/), Strasbourg (France). Facts are re-checked periodically; issues and pull requests welcome.
+Built and maintained by [JAIKIN](https://www.jaikin.eu/), Strasbourg (France). Vendor facts are re-checked periodically; issues and pull requests welcome.
 
 ---
 
 ## Français
 
-**Préparer un projet ou une migration Odoo avec des faits sourcés.** Conçu le jour de la sortie d'Odoo 20 (24/09/2026) à partir de la documentation officielle, des notes de version et du code Community public.
+**Choisir, planifier, chiffrer et faire évoluer un ERP avec des faits sourcés.** Pour les PME et ETI qui évaluent ou utilisent Odoo, Microsoft Dynamics 365 Business Central, Sage 100 / X3, SAP Business One, Divalto, Cegid, Sylob ou EBP, avec un module approfondi de **migration vers Odoo 20**.
 
-- `/odoo-migration-check` : état de préparation en 8 blocs, points bloquants, plan en phases, questions à poser à l'intégrateur.
-- `/odoo-gap-analysis` : matrice exigence par exigence (standard, paramétrage, Studio, OCA, développement).
-- `/odoo-cost` : coût sur 5 ans (licences dont Light Users, hébergement, mise en œuvre, maintenance).
-- `/review-odoo-quote` : relecture d'un devis d'intégrateur, pièges propres à Odoo.
-- Scripts en lecture seule : analyse des modules maison et inventaire d'une instance (clé d'API dans une variable d'environnement, jamais affichée).
+- `choose-erp` : ERP standard, vertical ou sur mesure ? Liste courte pondérée et scénarios de démonstration.
+- `fit-gap` : matrice exigence par exigence (standard, paramétrage, low-code, module complémentaire, développement).
+- `erp-migration` : plan de migration (montée de version ou changement d'ERP), reprise des données, bascule, retour arrière.
+- `erp-cost` : coût complet sur 5 ans, prix éditeurs datés uniquement s'ils sont publiés.
+- `review-erp-quote` : relecture d'un devis d'intégrateur ERP.
+- `odoo-20-upgrade` : préparation à Odoo 20 en 8 blocs et scripts d'analyse en lecture seule.
+- Statut « plateforme agréée » (facturation électronique) de chaque ERP, d'après la liste officielle.
 
-Plugin indépendant, non affilié à Odoo S.A. Conçu et maintenu par [JAIKIN](https://www.jaikin.eu/), Strasbourg.
+Plugin indépendant, non affilié aux éditeurs cités. Conçu et maintenu par [JAIKIN](https://www.jaikin.eu/), Strasbourg.
