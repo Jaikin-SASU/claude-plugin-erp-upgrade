@@ -30,7 +30,7 @@ Invoke as `/erp-upgrade-fit-gap:<skill>` or just describe your need — skills t
 - Field Service discontinued (→ Planning), payroll work entries removed, bank entries must come from bank transactions; Light User licence; Custom plan list price up about 20 % on 24 Sept 2026.
 - **Read-only scripts** (Python ≥ 3.9, standard library only):
   - `scan_addons.py <addons-folder>` — static scan of custom modules, no database access, effort points per module.
-  - `inventory_instance.py --url … --db …` — read-only inventory through an API key read from `ODOO_API_KEY` (never printed or stored; hard-coded whitelist of read methods).
+  - `inventory_instance.py --url … --db …` — read-only inventory through an API key typed at a hidden prompt or piped with `--api-key-stdin` (never read from shell variables, printed or stored; hard-coded whitelist of read methods).
 
 ## MCP server `erp-facts`
 The plugin connects to a read-only MCP server, **https://erp-mcp.jaikin.eu/mcp** (no account needed), that serves the same sourced vendor facts so they can be updated without reinstalling: `list_vendors`, `vendor_facts`, `support_deadlines`, `einvoicing_status`, `odoo_20_changes`, `sources_and_method`. Registry name: `eu.jaikin/erp-facts`.

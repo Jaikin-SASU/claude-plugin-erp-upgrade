@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 """Read-only Odoo instance inventory for migration readiness.
 
-API key is read ONLY from the ODOO_API_KEY environment variable.
-Never accept the key as a CLI argument; never print or persist it.
+The API key is typed by the user at a hidden prompt, or piped on stdin with
+--api-key-stdin (e.g. from a password manager). It is never read from shell
+variables or files, never accepted as a CLI argument, never printed or
+persisted.
 Standard library only.
 """
 
 from __future__ import annotations
 
 import argparse
+import getpass
 import json
-import os
 import sys
 import xmlrpc.client
 from typing import Any, Dict, List, Optional, Sequence, Set
@@ -268,13 +270,12 @@ def inventory_instance(
     db: str,
     *,
     login: Optional[str] = None,
-    api_key: Optional[str] = None,
+    api_key: str,
 ) -> Dict[str, Any]:
-    key = api_key if api_key is not None else os.environ.get("ODOO_API_KEY", "")
-    if not key:
-        raise ConnectionError("ODOO_API_KEY environment variable is required")
+    if not api_key:
+        raise ConnectionError("an Odoo API key is required")
 
-    client = OdooReadClient(url, db, api_key=key, login=login)
+    client = OdooReadClient(url, db, api_key=api_key, login=login)
     version = client.detect_version()
     notes: List[str] = []
 
@@ -398,9 +399,18 @@ def format_text(result: Dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def read_api_key(from_stdin: bool) -> str:
+    """Return the API key typed at a hidden prompt or piped on stdin."""
+    if from_stdin:
+        return sys.stdin.readline().strip()
+    if not sys.stdin.isatty():
+        return ""
+    return getpass.getpass("Odoo API key (hidden): ").strip()
+
+
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Read-only inventory of an Odoo instance (API key via ODOO_API_KEY)."
+        description="Read-only inventory of an Odoo instance (API key typed at a hidden prompt)."
     )
     parser.add_argument("--url", required=True, help="Base URL of the Odoo instance")
     parser.add_argument("--db", required=True, help="Database name")
@@ -412,24 +422,32 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         dest="fmt",
         help="Output format",
     )
+    parser.add_argument(
+        "--api-key-stdin",
+        action="store_true",
+        help="Read the API key from the first line of stdin instead of prompting",
+    )
     try:
         args = parser.parse_args(argv)
     except SystemExit as exc:
         code = exc.code if isinstance(exc.code, int) else 2
         return 2 if code else 0
 
-    if not os.environ.get("ODOO_API_KEY"):
-        print("error: ODOO_API_KEY environment variable is required", file=sys.stderr)
+    key = read_api_key(args.api_key_stdin)
+    if not key:
+        print(
+            "error: an Odoo API key is required (hidden prompt in a terminal, or --api-key-stdin)",
+            file=sys.stderr,
+        )
         return 2
 
     try:
-        result = inventory_instance(args.url, args.db, login=args.login)
+        result = inventory_instance(args.url, args.db, login=args.login, api_key=key)
     except (ConnectionError, WhitelistError, OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 
     # Belt-and-suspenders: never leak the key
-    key = os.environ.get("ODOO_API_KEY", "")
     if args.fmt == "text":
         out = format_text(result)
     else:

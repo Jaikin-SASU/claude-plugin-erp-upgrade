@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.3.2 — 2026-09-26 : directory checks — Odoo API key typed at a hidden prompt or piped with `--api-key-stdin` (never read from shell variables); no download-and-execute command in the references; plugin icon; privacyPolicyUrl.
+
 ## 0.3.1 — 2026-09-25 : Cursor Marketplace manifest; maintainer section in skills.
 
 ## 0.3.0 — 2026-09-24 : read-only MCP server `erp-facts` (https://erp-mcp.jaikin.eu/mcp, registry name eu.jaikin/erp-facts) serving the sourced vendor facts; skills call it first when available; further-reading links.

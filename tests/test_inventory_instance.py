@@ -287,14 +287,12 @@ class TestInventoryInstance(FakeServerMixin, unittest.TestCase):
     def setUp(self):
         self.inv = _import_inventory()
         self.url = self.start_fake("20.0")
-        os.environ["ODOO_API_KEY"] = FAKE_API_KEY
 
     def tearDown(self):
         self.stop_fake()
-        os.environ.pop("ODOO_API_KEY", None)
 
     def test_classify_modules(self):
-        result = self.inv.inventory_instance(self.url, "testdb")
+        result = self.inv.inventory_instance(self.url, "testdb", api_key=FAKE_API_KEY)
         cats = result["modules"]
         self.assertEqual(len(cats["odoo"]), 1)
         self.assertEqual(cats["odoo"][0]["name"], "sale")
@@ -306,7 +304,7 @@ class TestInventoryInstance(FakeServerMixin, unittest.TestCase):
         self.assertEqual(cats["custom"][0]["name"], "acme_custom")
 
     def test_collects_counts(self):
-        result = self.inv.inventory_instance(self.url, "testdb")
+        result = self.inv.inventory_instance(self.url, "testdb", api_key=FAKE_API_KEY)
         self.assertEqual(result["server_version"], "20.0")
         self.assertEqual(result["studio_fields"], 3)
         self.assertEqual(result["studio_views"], 2)
@@ -318,7 +316,7 @@ class TestInventoryInstance(FakeServerMixin, unittest.TestCase):
         self.assertEqual(result["api_keys_count"], 1)
 
     def test_api_key_never_in_output(self):
-        result = self.inv.inventory_instance(self.url, "testdb")
+        result = self.inv.inventory_instance(self.url, "testdb", api_key=FAKE_API_KEY)
         dumped = json.dumps(result)
         self.assertNotIn(FAKE_API_KEY, dumped)
         proc = subprocess.run(
@@ -331,11 +329,13 @@ class TestInventoryInstance(FakeServerMixin, unittest.TestCase):
                 "testdb",
                 "--format",
                 "json",
+                "--api-key-stdin",
             ],
+            input=FAKE_API_KEY + "\n",
             capture_output=True,
             text=True,
             check=False,
-            env={**os.environ, "ODOO_API_KEY": FAKE_API_KEY},
+            env={k: v for k, v in os.environ.items() if k != "ODOO_API_KEY"},
         )
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertNotIn(FAKE_API_KEY, proc.stdout)
@@ -352,13 +352,12 @@ class TestInventoryInstance(FakeServerMixin, unittest.TestCase):
 
     def test_access_error_returns_null_note(self):
         self._httpd.access_errors.add("hr.employee")
-        result = self.inv.inventory_instance(self.url, "testdb")
+        result = self.inv.inventory_instance(self.url, "testdb", api_key=FAKE_API_KEY)
         self.assertIsNone(result["employees_without_user"])
         notes = result.get("notes") or []
         self.assertTrue(any("hr.employee" in n for n in notes))
 
     def test_cli_usage_without_key(self):
-        env = {k: v for k, v in os.environ.items() if k != "ODOO_API_KEY"}
         proc = subprocess.run(
             [
                 sys.executable,
@@ -367,13 +366,32 @@ class TestInventoryInstance(FakeServerMixin, unittest.TestCase):
                 self.url,
                 "--db",
                 "testdb",
+                "--api-key-stdin",
             ],
+            input="",
             capture_output=True,
             text=True,
             check=False,
-            env=env,
         )
         self.assertEqual(proc.returncode, 2)
+
+    def test_environment_key_is_ignored(self):
+        proc = subprocess.run(
+            [sys.executable, str(INVENTORY), "--url", self.url, "--db", "testdb", "--api-key-stdin"],
+            input="",
+            capture_output=True,
+            text=True,
+            check=False,
+            env={**os.environ, "ODOO_API_KEY": FAKE_API_KEY},
+        )
+        self.assertEqual(proc.returncode, 2)
+
+    def test_function_requires_key(self):
+        with self.assertRaises(self.inv.ConnectionError):
+            self.inv.inventory_instance(self.url, "testdb", api_key="")
+
+    def test_script_never_reads_environment(self):
+        self.assertNotIn("environ", INVENTORY.read_text(encoding="utf-8"))
 
     def test_cli_usage_missing_args(self):
         proc = subprocess.run(
@@ -389,15 +407,13 @@ class TestInventoryXmlrpcFallback(FakeServerMixin, unittest.TestCase):
     def setUp(self):
         self.inv = _import_inventory()
         self.url = self.start_fake("17.0")
-        os.environ["ODOO_API_KEY"] = FAKE_API_KEY
 
     def tearDown(self):
         self.stop_fake()
-        os.environ.pop("ODOO_API_KEY", None)
 
     def test_xmlrpc_path_for_v17(self):
         result = self.inv.inventory_instance(
-            self.url, "testdb", login="admin"
+            self.url, "testdb", login="admin", api_key=FAKE_API_KEY
         )
         self.assertTrue(str(result["server_version"]).startswith("17"))
         self.assertEqual(result["protocol"], "xmlrpc")
